@@ -1,6 +1,6 @@
 import {observer} from 'mobx-react';
-import React, {FC, useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React, {FC, useCallback, useState} from 'react';
+import {StyleSheet, View, Text, Button} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {Assets} from '../../assets';
 import {useComponentWill} from '../../hooks/useComponentWill';
@@ -17,10 +17,14 @@ export const SomeModal: FC<NavProps<'SomeModal'>> = observer((props) => {
 
   useComponentWill(async () => {});
 
+  const onClose = useCallback(() => {
+    props.navigation.pop();
+  }, []);
   return (
     <View style={StyleSheet.absoluteFill}>
       <View style={styles.body}>
         <Text>Modal...</Text>
+        <Button title={'Close'} onPress={onClose}></Button>
       </View>
     </View>
   );
